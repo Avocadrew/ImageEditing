@@ -1,8 +1,8 @@
-# Install script for directory: D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing
+# Install script for directory: C:/Users/User/Documents/GitHub/ImageEditing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/User/Documents/GitHub/ImageEditing/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/User/Documents/GitHub/ImageEditing/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

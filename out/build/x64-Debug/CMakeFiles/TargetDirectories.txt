@@ -1,4 +1,4 @@
-D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/build/x64-Debug/CMakeFiles/ImageEditing.dir
-D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/build/x64-Debug/CMakeFiles/libtarga.dir
-D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-D:/台科上課資料/大四上/CS3026 電腦圖學導論_賴祐吉/ImageEditing/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/User/Documents/GitHub/ImageEditing/out/build/x64-Debug/CMakeFiles/ImageEditing.dir
+C:/Users/User/Documents/GitHub/ImageEditing/out/build/x64-Debug/CMakeFiles/libtarga.dir
+C:/Users/User/Documents/GitHub/ImageEditing/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/User/Documents/GitHub/ImageEditing/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir

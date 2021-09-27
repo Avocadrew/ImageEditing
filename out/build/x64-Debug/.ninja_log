@@ -1,8 +1,8 @@
 # ninja log v5
-23	365	6499532230103084	CMakeFiles/libtarga.dir/src/libtarga.c.obj	3abaa2521f7ae563
-17	519	6499532232078022	CMakeFiles/ImageEditing.dir/src/ScriptHandler.cpp.obj	94d9246dcecc2733
-366	624	6499532231938399	libtarga.lib	9dd135eac47c0a80
-11	705	6499532233941742	CMakeFiles/ImageEditing.dir/src/TargaImage.cpp.obj	1236542807d2b1d8
-7	797	6499532234849319	CMakeFiles/ImageEditing.dir/src/ImageWidget.cpp.obj	14054053c0047d51
-0	962	6499532236500254	CMakeFiles/ImageEditing.dir/src/Main.cpp.obj	cec9fcf82e448552
-962	1735	6499532243619440	ImageEditing.exe	a17a9730b0a8d153
+17	270	6544422632786137	CMakeFiles/libtarga.dir/src/libtarga.c.obj	cab3d65f9e749f31
+277	416	6544422634172425	libtarga.lib	25e50f7da81b9f47
+8	1326	6544422643392918	CMakeFiles/ImageEditing.dir/src/ScriptHandler.cpp.obj	705c87eb10b5b9bc
+5	1544	6544422645577080	CMakeFiles/ImageEditing.dir/src/ImageWidget.cpp.obj	ca44891083ad939e
+12	1661	6544422646763907	CMakeFiles/ImageEditing.dir/src/TargaImage.cpp.obj	5390d0682d5289ab
+0	2015	6544422650314635	CMakeFiles/ImageEditing.dir/src/Main.cpp.obj	b13c5e6b31426043
+2016	2685	6544422656635362	ImageEditing.exe	fbe7597db8220579
