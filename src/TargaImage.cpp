@@ -920,6 +920,7 @@ bool TargaImage::Difference(TargaImage* pImage)
 }// Difference
 
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 //      Perform 5x5 box filter on this image.  Return success of operation.
@@ -967,6 +968,27 @@ bool TargaImage::Filter_Box()
                     {
                         //add sum
                         int rgbPos = (i + k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * boxFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * boxFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * boxFilter[k + 2][l + 2];
+                    }
+                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * boxFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * boxFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * boxFilter[k + 2][l + 2];
+                    }
+                    else if (i + k < 0 || i + k >= height)
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * boxFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * boxFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * boxFilter[k + 2][l + 2];
+                    }
+                    else if (j + l < 0 || j + l >= width)
+                    {
+                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
                         sumR += (double)RGB[rgbPos] * boxFilter[k + 2][l + 2];
                         sumG += (double)RGB[rgbPos + 1] * boxFilter[k + 2][l + 2];
                         sumB += (double)RGB[rgbPos + 2] * boxFilter[k + 2][l + 2];
@@ -1024,9 +1046,32 @@ bool TargaImage::Filter_Bartlett()
             {
                 for (int l = -2; l <= 2; l++)
                 {
+                    //mask 3*3 region
                     if (i + k >= 0 && i + k < height && j + l >= 0 && j + l < width)
                     {
+                        //add sum
                         int rgbPos = (i + k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * bartlettFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * bartlettFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * bartlettFilter[k + 2][l + 2];
+                    }
+                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * bartlettFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * bartlettFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * bartlettFilter[k + 2][l + 2];
+                    }
+                    else if (i + k < 0 || i + k >= height)
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * bartlettFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * bartlettFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * bartlettFilter[k + 2][l + 2];
+                    }
+                    else if (j + l < 0 || j + l >= width)
+                    {
+                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
                         sumR += (double)RGB[rgbPos] * bartlettFilter[k + 2][l + 2];
                         sumG += (double)RGB[rgbPos + 1] * bartlettFilter[k + 2][l + 2];
                         sumB += (double)RGB[rgbPos + 2] * bartlettFilter[k + 2][l + 2];
@@ -1082,9 +1127,32 @@ bool TargaImage::Filter_Gaussian()
             {
                 for (int l = -2; l <= 2; l++)
                 {
+                    //mask 3*3 region
                     if (i + k >= 0 && i + k < height && j + l >= 0 && j + l < width)
                     {
+                        //add sum
                         int rgbPos = (i + k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilter[k + 2][l + 2];
+                    }
+                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilter[k + 2][l + 2];
+                    }
+                    else if (i + k < 0 || i + k >= height)
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilter[k + 2][l + 2];
+                    }
+                    else if (j + l < 0 || j + l >= width)
+                    {
+                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
                         sumR += (double)RGB[rgbPos] * gaussianFilter[k + 2][l + 2];
                         sumG += (double)RGB[rgbPos + 1] * gaussianFilter[k + 2][l + 2];
                         sumB += (double)RGB[rgbPos + 2] * gaussianFilter[k + 2][l + 2];
@@ -1112,67 +1180,79 @@ bool TargaImage::Filter_Gaussian_N(unsigned int N)
     double sigma = 1.0, PI = 3.14159;
     double rl, s = 2.0 * sigma * sigma;
     int dl = (N - 1) / 2;
-    double* mask = new double[N * N];
+    double** gaussianFilterN = new double* [N];
+    for (int i = 0; i < N; i++)
+    {
+        gaussianFilterN[i] = new double[N];
+    }
     for (int x = -dl; x <= dl; x++)
     {
         for (int y = -dl; y <= dl; y++)
         {
             rl = x * x + y * y;
-            mask[(y + dl) * N + x + dl] = (exp(-rl / s)) / (PI * s);
-            sum += mask[(y + dl) * N + x + dl];
+            gaussianFilterN[y + dl][x + dl] = (exp(-rl / s)) / (PI * s);
+            sum += gaussianFilterN[y + dl][x + dl];
         }
     }
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            mask[i * N + j] /= sum;
+            gaussianFilterN[i][j] /= sum;
         }
     }
+    //mask filter
+    unsigned char* RGB = this->To_RGB();
 
-    int n = N;
-    int d = (n - 1) / 2;
-    int i, j, x, y, newX, newY;
-    unsigned char* tmp = new unsigned char[4 * width * height];
-    double r, g, b;
-    for (y = 0; y < height; y++)
+    for (int i = 0; i < height; i++)
     {
-        for (x = 0; x < width; x++)
+        for (int j = 0; j < width; j++)
         {
-            r = g = b = 0;
-            for (i = -d; i <= d; i++)
+            int curPos = (i * width + j) * 4;
+            double sumR = 0;
+            double sumG = 0;
+            double sumB = 0;
+            for (int k = -(N - 1) / 2; k <= (N - 1) / 2; k++)
             {
-                for (j = -d; j <= d; j++)
+                for (int l = -(N - 1) / 2; l <= (N - 1) / 2; l++)
                 {
-                    if (x + j >= width || x + j < 0)
-                        newX = x - j;
-                    else
-                        newX = x + j;
-                    if (y + i >= height || y + i < 0)
-                        newY = y - i;
-                    else
-                        newY = y + i;
-                    r = r + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX)];
-                    g = g + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX) + 1];
-                    b = b + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX) + 2];
+                    //mask 3*3 region
+                    if (i + k >= 0 && i + k < height && j + l >= 0 && j + l < width)
+                    {
+                        //add sum
+                        int rgbPos = (i + k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
+                    }
+                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
+                    }
+                    else if (i + k < 0 || i + k >= height)
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
+                    }
+                    else if (j + l < 0 || j + l >= width)
+                    {
+                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
+                    }
                 }
             }
-
-            tmp[4 * ((y)*width + x)] = r > 255 ? 255 : r;
-            tmp[4 * ((y)*width + x) + 1] = g > 255 ? 255 : g;
-            tmp[4 * ((y)*width + x) + 2] = b > 255 ? 255 : b;
-
+            if (sumR < 0)sumR = 0; if (sumR > 255)sumR = 255; data[curPos] = (unsigned char)sumR;
+            if (sumG < 0)sumG = 0; if (sumG > 255)sumG = 255; data[curPos + 1] = (unsigned char)sumG;
+            if (sumB < 0)sumB = 0; if (sumB > 255)sumB = 255; data[curPos + 2] = (unsigned char)sumB;
         }
     }
-    for (i = 0; i < height * width; i++)
-    {
-        data[4 * i] = tmp[4 * i];
-        data[4 * i + 1] = tmp[4 * i + 1];
-        data[4 * i + 2] = tmp[4 * i + 2];
-        data[4 * i + 3] = 255;
-    }
-    delete[]tmp;
-    delete[]mask;
     return true;
 }// Filter_Gaussian_N
 
@@ -1219,7 +1299,29 @@ bool TargaImage::Filter_Edge()
                 {
                     if (i + k >= 0 && i + k < height && j + l >= 0 && j + l < width)
                     {
+                        //add sum
                         int rgbPos = (i + k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * edgeFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * edgeFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * edgeFilter[k + 2][l + 2];
+                    }
+                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
+                        sumR += (double)RGB[rgbPos] * edgeFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * edgeFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * edgeFilter[k + 2][l + 2];
+                    }
+                    else if (i + k < 0 || i + k >= height)
+                    {
+                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
+                        sumR += (double)RGB[rgbPos] * edgeFilter[k + 2][l + 2];
+                        sumG += (double)RGB[rgbPos + 1] * edgeFilter[k + 2][l + 2];
+                        sumB += (double)RGB[rgbPos + 2] * edgeFilter[k + 2][l + 2];
+                    }
+                    else if (j + l < 0 || j + l >= width)
+                    {
+                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
                         sumR += (double)RGB[rgbPos] * edgeFilter[k + 2][l + 2];
                         sumG += (double)RGB[rgbPos + 1] * edgeFilter[k + 2][l + 2];
                         sumB += (double)RGB[rgbPos + 2] * edgeFilter[k + 2][l + 2];
@@ -1273,58 +1375,47 @@ bool TargaImage::Half_Size()
 {
     int n = 3;
     int d = (n - 1) / 2;
-    int i, j, x, y;
-    double map[3][3] = { 0.0625, 0.125, 0.0625,
-                         0.125 , 0.25 , 0.125,
-                         0.0625, 0.125, 0.0625 };
+    double halfFilter[3][3] = 
+    { 
+        0.0625, 0.125, 0.0625,
+        0.125 , 0.25 , 0.125,
+        0.0625, 0.125, 0.0625 
+    };
     int originalX, originalY;
     int newHeight = (height / 2);
     int newWidth = (width / 2);
     unsigned char* tmp;
     tmp = new unsigned char[4 * newHeight * newWidth];
-    double sum = 0;
-    for (y = 0; y < newHeight; y++)
+    for (int y = 0; y < newHeight; y++)
     {
-        for (x = 0; x < newWidth; x++)
+        for (int x = 0; x < newWidth; x++)
         {
             originalX = x * 2 + 1;
             originalY = y * 2 + 1;
             if (originalX >= width - d || originalY >= height - d)
                 continue;
-            sum = 0;
-            for (i = -d; i <= d; i++)
+            double colorSumR = 0;
+            double colorSumG = 0;
+            double colorSumB = 0;
+            for (int i = -d; i <= d; i++)
             {
-                for (j = -d; j <= d; j++)
+                for (int j = -d; j <= d; j++)
                 {
-                    sum = sum + map[i + d][j + d] * data[4 * ((originalY + i) * width + originalX + j)];
+                    colorSumR = colorSumR + data[4 * ((originalY + i) * width + originalX + j)] * halfFilter[i + d][j + d];
+                    colorSumG = colorSumG + data[4 * ((originalY + i) * width + originalX + j) + 1] * halfFilter[i + d][j + d];
+                    colorSumB = colorSumB + data[4 * ((originalY + i) * width + originalX + j) + 2] * halfFilter[i + d][j + d];
                 }
             }
-            tmp[4 * (y * newWidth + x)] = sum;
-            sum = 0;
-            for (i = -d; i <= d; i++)
-            {
-                for (j = -d; j <= d; j++)
-                {
-                    sum = sum + data[4 * ((originalY + i) * width + originalX + j) + 1] * map[i + d][j + d];
-                }
-            }
-            tmp[4 * (y * newWidth + x) + 1] = sum;
-            sum = 0;
-            for (i = -d; i <= d; i++)
-            {
-                for (j = -d; j <= d; j++)
-                {
-                    sum = sum + data[4 * ((originalY + i) * width + originalX + j) + 2] * map[i + d][j + d];
-                }
-            }
-            tmp[4 * (y * newWidth + x) + 2] = sum;
+            if (colorSumR < 0)colorSumR = 0; if (colorSumR > 255)colorSumR = 255; tmp[4 * (y * newWidth + x)] = (unsigned char)colorSumR;
+            if (colorSumG < 0)colorSumG = 0; if (colorSumG > 255)colorSumG = 255; tmp[4 * (y * newWidth + x) + 1] = (unsigned char)colorSumG;
+            if (colorSumB < 0)colorSumB = 0; if (colorSumB > 255)colorSumB = 255; tmp[4 * (y * newWidth + x) + 2] = (unsigned char)colorSumB;
         }
     }
     width = newWidth;
     height = newHeight;
     delete[]data;
     data = new unsigned char[width * height * 4];
-    for (i = 0; i < width * height * 4; i = i + 4)
+    for (int i = 0; i < width * height * 4; i = i + 4)
     {
         data[i] = tmp[i];
         data[i + 1] = tmp[i + 1];
