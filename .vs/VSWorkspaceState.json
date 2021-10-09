@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\out",
     "\\src"
   ],
-  "SelectedNode": "\\src\\TargaImage.cpp",
+  "SelectedNode": "\\src\\Main.cpp",
   "PreviewInSolutionExplorer": false
 }

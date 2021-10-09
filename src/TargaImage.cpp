@@ -1180,78 +1180,64 @@ bool TargaImage::Filter_Gaussian_N(unsigned int N)
     double sigma = 1.0, PI = 3.14159;
     double rl, s = 2.0 * sigma * sigma;
     int dl = (N - 1) / 2;
-    double** gaussianFilterN = new double* [N];
-    for (int i = 0; i < N; i++)
-    {
-        gaussianFilterN[i] = new double[N];
-    }
+    double* mask = new double[N * N];
     for (int x = -dl; x <= dl; x++)
     {
         for (int y = -dl; y <= dl; y++)
         {
             rl = x * x + y * y;
-            gaussianFilterN[y + dl][x + dl] = (exp(-rl / s)) / (PI * s);
-            sum += gaussianFilterN[y + dl][x + dl];
+            mask[(y + dl) * N + x + dl] = (exp(-rl / s)) / (PI * s);
+            sum += mask[(y + dl) * N + x + dl];
         }
     }
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            gaussianFilterN[i][j] /= sum;
+            mask[i * N + j] /= sum;
         }
     }
-    //mask filter
-    unsigned char* RGB = this->To_RGB();
 
-    for (int i = 0; i < height; i++)
+    int n = N;
+    int d = (n - 1) / 2;
+    int i, j, x, y, newX, newY;
+    unsigned char* tmp = new unsigned char[4 * width * height];
+    double r, g, b;
+    for (y = 0; y < height; y++)
     {
-        for (int j = 0; j < width; j++)
+        for (x = 0; x < width; x++)
         {
-            int curPos = (i * width + j) * 4;
-            double sumR = 0;
-            double sumG = 0;
-            double sumB = 0;
-            for (int k = -(N - 1) / 2; k <= (N - 1) / 2; k++)
+            r = g = b = 0;
+            for (i = -d; i <= d; i++)
             {
-                for (int l = -(N - 1) / 2; l <= (N - 1) / 2; l++)
+                for (j = -d; j <= d; j++)
                 {
-                    //mask 3*3 region
-                    if (i + k >= 0 && i + k < height && j + l >= 0 && j + l < width)
-                    {
-                        //add sum
-                        int rgbPos = (i + k) * width * 3 + (j + l) * 3;
-                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
-                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
-                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
-                    }
-                    else if ((i + k < 0 && j + l < 0) || (i + k < 0 && j + l >= width) || (i + k >= height && j + l < 0) || (i + k >= height && j + l >= width))
-                    {
-                        int rgbPos = (i - k) * width * 3 + (j - l) * 3;
-                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
-                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
-                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
-                    }
-                    else if (i + k < 0 || i + k >= height)
-                    {
-                        int rgbPos = (i - k) * width * 3 + (j + l) * 3;
-                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
-                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
-                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
-                    }
-                    else if (j + l < 0 || j + l >= width)
-                    {
-                        int rgbPos = (i + k) * width * 3 + (j - l) * 3;
-                        sumR += (double)RGB[rgbPos] * gaussianFilterN[k + 2][l + 2];
-                        sumG += (double)RGB[rgbPos + 1] * gaussianFilterN[k + 2][l + 2];
-                        sumB += (double)RGB[rgbPos + 2] * gaussianFilterN[k + 2][l + 2];
-                    }
+                    if (x + j >= width || x + j < 0)
+                        newX = x - j;
+                    else
+                        newX = x + j;
+                    if (y + i >= height || y + i < 0)
+                        newY = y - i;
+                    else
+                        newY = y + i;
+                    r = r + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX)];
+                    g = g + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX) + 1];
+                    b = b + mask[(i + d) * n + j + d] * data[4 * ((newY)*width + newX) + 2];
                 }
             }
-            if (sumR < 0)sumR = 0; if (sumR > 255)sumR = 255; data[curPos] = (unsigned char)sumR;
-            if (sumG < 0)sumG = 0; if (sumG > 255)sumG = 255; data[curPos + 1] = (unsigned char)sumG;
-            if (sumB < 0)sumB = 0; if (sumB > 255)sumB = 255; data[curPos + 2] = (unsigned char)sumB;
+
+            tmp[4 * ((y)*width + x)] = r > 255 ? 255 : r;
+            tmp[4 * ((y)*width + x) + 1] = g > 255 ? 255 : g;
+            tmp[4 * ((y)*width + x) + 2] = b > 255 ? 255 : b;
+
         }
+    }
+    for (i = 0; i < height * width; i++)
+    {
+        data[4 * i] = tmp[4 * i];
+        data[4 * i + 1] = tmp[4 * i + 1];
+        data[4 * i + 2] = tmp[4 * i + 2];
+        data[4 * i + 3] = 255;
     }
     return true;
 }// Filter_Gaussian_N
