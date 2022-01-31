@@ -18,7 +18,7 @@ More details about the course project could be seen in [this link](http://dgmm.c
 ## Operations
 | Effect  | Input Keyword |
 | ------------- | ------------- |
-| Load Picture (In .tga format) | load <source> |
+| Load Picture (In .tga format) | load \<source\> |
 | Grayscale | gray |
 | Uniform Quantization | quant-unif |
 | Populosity | quant-pop |
@@ -33,7 +33,7 @@ More details about the course project could be seen in [this link](http://dgmm.c
 | Arbitrary-Size Gaussian Filter | filter-gauss-n <size(odd int)> |
 | Half Size | half |
 | Double Size | double |
-| Save | save <filename> |
+| Save | save \<filename\> |
 
 
 ##### © 2022 Andrew (Jun-Yu) Chen
