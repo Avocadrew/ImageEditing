@@ -10,12 +10,7 @@ An Image Editor written in C++ implementing various effects on images. The editi
 ## Building and Running
 Can be built directly with CMake with the given CMakeLists text file, preferred building/running platform would be Visual Studio 2019 on Windows 10.
 
-## Implementation
-Done as coursework for CS3026 Introduction to Computer Graphics in NTUST, Fall 2021.
-
-More details about the course project could be seen in [this link](http://dgmm.csie.ntust.edu.tw/?ac1=courprojdetail_CG2012F_3&id=5ecf7b7a5118c&sid=614a94d120553), keywords of functions implemented is given in the next section.
-
-## Operations
+## Calling of Tasks Done
 | Effect  | Input Keyword |
 | ------------- | ------------- |
 | Load Picture (In .tga format) | load \<source\> |
@@ -35,5 +30,7 @@ More details about the course project could be seen in [this link](http://dgmm.c
 | Double Size | double |
 | Save | save \<filename\> |
 
+## Implementation
+Done as coursework for CS3026 Introduction to Computer Graphics in NTUST, Fall 2021. More details about the course project could be seen in [this link](http://dgmm.csie.ntust.edu.tw/?ac1=courprojdetail_CG2012F_3&id=5ecf7b7a5118c&sid=614a94d120553).
 
 ##### © 2022 Andrew (Jun-Yu) Chen
