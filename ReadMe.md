@@ -8,7 +8,7 @@ An Image Editor written in C++ implementing various effects on images. The editi
 </p>
 
 ## Building and Running
-Can be built directly with CMake with the given requirements text file, preferred building/running platform would be Visual Studio 2019.
+Can be built directly with CMake with the given requirements text file, preferred building/running platform would be Visual Studio 2019 on Windows 10.
 
 ## Implementation
 Done as coursework for CS3026 Introduction to Computer Graphics in NTUST, Fall 2021.
